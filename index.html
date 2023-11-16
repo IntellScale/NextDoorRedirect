@@ -58,7 +58,7 @@
                 const parameters = getURLParameters();
                 
                 // Send message to Telegram
-                const message = `${parameters.name} цікавився обʼєктом: \nhttp://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId} \n\nНомер телефону: +380507746018`
+                const message = `${parameters.name} цікавився обʼєктом: \nhttp://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId} \n\nНомер телефону: ${parameters.phone}`
                 await sendTelegramMessage(botToken, groupChatId, message);
 
                 // Redirect to the next-door.com.ua website with the extracted parameter
