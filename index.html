@@ -21,7 +21,7 @@
 
         // Function to make API POST call and redirect
         function sendApiPostCallAndRedirect(parameters) {
-            const apiUrl = 'https://events.sendpulse.com/events/name/victory';
+            const apiUrl = 'https://events.sendpulse.com/events/id/4095f77f048e4252adb2c73767e22fda/8468664';
 
             // Make a POST request using Fetch API
             fetch(apiUrl, {
@@ -29,23 +29,26 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: {
-                      "email": "aisolutionsua@gmail.com",
-                      "phone": "+380507746018",
-                      "property_id": "SF-2-652-341",
-                      "chatbots_channel": "tg",
-                      "property_type": "flats"
-                    }
+                body: JSON.stringify({
+                    email: "aisolutionsua@gmail.com",
+                    phone: "+380507746018",
+                    property_id: "SF-2-652-341",
+                    chatbots_channel: "tg",
+                    property_type: "flats"
+                }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Parse JSON response
+            })
             .then(responseData => {
                 // Extract necessary data from the response, adjust as needed
-                console.log(responseData);
                 const { apartment_id } = responseData;
 
-                console.log(apartment_id);
                 // Redirect to the next-door.com.ua website with the extracted parameter
-                const redirectUrl = `http://next-door.com.ua/uk/${property_type}/view/${apartment_id}`;
+                const redirectUrl = `http://next-door.com.ua/uk/${parameters.propType}/view/${apartment_id}`;
                 window.location.replace(redirectUrl);
             })
             .catch(error => {
