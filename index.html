@@ -17,13 +17,11 @@
             const chatbots_channel = 'tg';
 
             return {email, propType, propId, phone, chatbots_channel};
-        }
+        }//https://alexgalich.github.io/Next-Door.gitgub.io/?prop_type={{getWhat}}s&prop_id={{$['data'][*]['adid']}}&phone=+380687771334&email=sasha@galich.net
 
         // Function to make API POST call and redirect
         function sendApiPostCallAndRedirect(parameters) {
             const apiUrl = 'https://events.sendpulse.com/events/id/4095f77f048e4252adb2c73767e22fda/8468664';
-            
-            console.log(parameters.email, parameters.phone, parameters.propId, parameters.chatbots_channel, parameters.propType)
 
             // Make a POST request using Fetch API
             fetch(apiUrl, {
