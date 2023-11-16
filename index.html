@@ -42,6 +42,7 @@
             const propType = params.get('prop_type');
             const propId = params.get('prop_id');
             const phone = params.get('phone');
+            const name = params.get('name');
 
             return {propType, propId, phone};
         }
@@ -57,7 +58,7 @@
                 const parameters = getURLParameters();
                 
                 // Send message to Telegram
-                const message = `Nikita Andriievskyi цікавився обʼєктом: \nhttp://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId} \n\nНомер телефону: +380507746018`
+                const message = `${parameters.name} цікавився обʼєктом: \nhttp://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId} \n\nНомер телефону: +380507746018`
                 await sendTelegramMessage(botToken, groupChatId, message);
 
                 // Redirect to the next-door.com.ua website with the extracted parameter
