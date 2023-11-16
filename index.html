@@ -40,8 +40,10 @@
             .then(response => response.json())
             .then(responseData => {
                 // Extract necessary data from the response, adjust as needed
+                console.log(responseData);
                 const { apartment_id } = responseData;
 
+                console.log(apartment_id);
                 // Redirect to the next-door.com.ua website with the extracted parameter
                 const redirectUrl = `http://next-door.com.ua/uk/${property_type}/view/${apartment_id}`;
                 window.location.replace(redirectUrl);
