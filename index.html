@@ -15,7 +15,7 @@
             const phone = params.get('phone');
             const chatbots_channel = 'tg';
 
-            return { propType, propId, phone, email };
+            return { propType, propId, phone};
         }
 
         // Function to make API POST call and redirect
@@ -29,7 +29,6 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: parameters.email,
                     phone: parameters.phone,
                     property_id: parameters.propId,
                     chatbots_channel: parameters.chatbots_channel
@@ -56,7 +55,7 @@
             const parameters = getURLParameters();
 
             // Make API POST call and redirect with the extracted parameters
-            if (parameters.propType && parameters.propId && parameters.phone && parameters.email) {
+            if (parameters.propType && parameters.propId && parameters.phone) {
                 sendApiPostCallAndRedirect(parameters);
             } else {
                 console.error('Required parameters not provided in the URL.');
