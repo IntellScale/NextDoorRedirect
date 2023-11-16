@@ -22,6 +22,8 @@
         // Function to make API POST call and redirect
         function sendApiPostCallAndRedirect(parameters) {
             const apiUrl = 'https://events.sendpulse.com/events/id/4095f77f048e4252adb2c73767e22fda/8468664';
+            
+            console.log(parameters.email, parameters.phone, parameters.propId, parameters.chatbots_channel, parameters.propType)
 
             // Make a POST request using Fetch API
             fetch(apiUrl, {
