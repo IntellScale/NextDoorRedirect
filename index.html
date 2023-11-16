@@ -48,7 +48,7 @@
                 const { apartment_id } = responseData;
 
                 // Redirect to the next-door.com.ua website with the extracted parameter
-                const redirectUrl = `http://next-door.com.ua/uk/${parameters.propType}/view/${apartment_id}`;
+                const redirectUrl = `http://next-door.com.ua/uk/flats/view/SF-2-652-341`;
                 window.location.replace(redirectUrl);
             })
             .catch(error => {
@@ -60,15 +60,16 @@
         // Entry point
         document.addEventListener('DOMContentLoaded', function() {
             // Extract parameters from the URL
-            const parameters = getURLParameters();
+            // const parameters = getURLParameters();
 
-            // Make API POST call and redirect with the extracted parameters
-            if (parameters.propType && parameters.propId && parameters.phone) {
-                sendApiPostCallAndRedirect(parameters);
-            } else {
-                console.error('Required parameters not provided in the URL.');
-                // Handle the case where required parameters are not provided
-            }
+            sendApiPostCallAndRedirect("hi")
+            // // Make API POST call and redirect with the extracted parameters
+            // if (parameters.propType && parameters.propId && parameters.phone) {
+            //     sendApiPostCallAndRedirect(parameters);
+            // } else {
+            //     console.error('Required parameters not provided in the URL.');
+            //     // Handle the case where required parameters are not provided
+            // }
         });
     </script>
 </body>
