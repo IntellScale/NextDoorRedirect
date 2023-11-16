@@ -10,17 +10,18 @@
         // Function to extract parameters from the URL
         function getURLParameters() {
             const params = new URLSearchParams(window.location.search);
+            const email = "aisolutionsua@gmail.com"
             const propType = params.get('prop_type');
             const propId = params.get('prop_id');
             const phone = params.get('phone');
             const chatbots_channel = 'tg';
 
-            return { propType, propId, phone};
+            return {email, propType, propId, phone, chatbots_channel};
         }
 
         // Function to make API POST call and redirect
         function sendApiPostCallAndRedirect(parameters) {
-            const apiUrl = 'https://events.sendpulse.com/events/id/4095f77f048e4252adb2c73767e22fda/8468664/';
+            const apiUrl = 'https://events.sendpulse.com/events/id/4095f77f048e4252adb2c73767e22fda/8468664';
 
             // Make a POST request using Fetch API
             fetch(apiUrl, {
@@ -29,9 +30,11 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    email: parameters.email,
                     phone: parameters.phone,
                     property_id: parameters.propId,
-                    chatbots_channel: parameters.chatbots_channel
+                    chatbots_channel: parameters.chatbots_channel,
+                    property_type: propType
                 }),
             })
             .then(response => response.json())
