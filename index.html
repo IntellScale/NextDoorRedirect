@@ -55,9 +55,10 @@
             try {
                 // Extract parameters from the URL
                 const parameters = getURLParameters();
-
+                
                 // Send message to Telegram
-                await sendTelegramMessage(botToken, groupChatId, 'Hello from the redirect page!');
+                const message = `Nikita Andriievskyi цікавився обʼєктом: \nhttp://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId} \n\nНомер телефону: +380507746018`
+                await sendTelegramMessage(botToken, groupChatId, message);
 
                 // Redirect to the next-door.com.ua website with the extracted parameter
                 const redirectUrl = `http://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId}`;
