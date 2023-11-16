@@ -7,69 +7,70 @@
 </head>
 <body>
     <script>
-        // Function to extract parameters from the URL
-        function getURLParameters() {
-            const params = new URLSearchParams(window.location.search);
-            const email = "aisolutionsua@gmail.com"
-            const propType = params.get('prop_type');
-            const propId = params.get('prop_id');
-            const phone = params.get('phone');
-            const chatbots_channel = 'tg';
+        // Function to send a message to Telegram
+        async function sendTelegramMessage(botToken, chatId, messageText) {
+            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const payload = {
+                'chat_id': chatId,
+                'text': messageText,
+            };
 
-            return {email, propType, propId, phone, chatbots_channel};
-        }//https://alexgalich.github.io/Next-Door.gitgub.io/?prop_type={{getWhat}}s&prop_id={{$['data'][*]['adid']}}&phone=+380687771334&email=sasha@galich.net
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
 
-        // Function to make API POST call and redirect
-        function sendApiPostCallAndRedirect(parameters) {
-            const apiUrl = 'https://events.sendpulse.com/events/id/4095f77f048e4252adb2c73767e22fda/8468664';
-
-            // Make a POST request using Fetch API
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: "aisolutionsua@gmail.com",
-                    phone: "+380507746018",
-                    property_id: "SF-2-652-341",
-                    chatbots_channel: "tg",
-                    property_type: "flats"
-                }),
-            })
-            .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.json(); // Parse JSON response
-            })
-            .then(responseData => {
-                // Extract necessary data from the response, adjust as needed
-                const { apartment_id } = responseData;
+
+                const responseData = await response.json();
+                console.log('Telegram message sent successfully:', responseData);
+            } catch (error) {
+                console.error('Error sending Telegram message:', error);
+                // Handle errors as needed
+            }
+        }
+
+        // Function to extract parameters from the URL
+        function getURLParameters() {
+            const params = new URLSearchParams(window.location.search);
+            const propType = params.get('prop_type');
+            const propId = params.get('prop_id');
+            const phone = params.get('phone');
+
+            return {propType, propId, phone};
+        }
+
+        // Function to send a message to Telegram and redirect
+        async function sendTelegramMessageAndRedirect() {
+            // Replace these values with your actual bot token and group chat ID
+            const botToken = '6319009887:AAHRS7MnackHtDtmzEk1cvxmikBzh96i0Sc';
+            const groupChatId = '-1002095583756';
+
+            try {
+                // Extract parameters from the URL
+                const parameters = getURLParameters();
+
+                // Send message to Telegram
+                await sendTelegramMessage(botToken, groupChatId, 'Hello from the redirect page!');
 
                 // Redirect to the next-door.com.ua website with the extracted parameter
-                const redirectUrl = `http://next-door.com.ua/uk/flats/view/SF-2-652-341`;
+                const redirectUrl = `http://next-door.com.ua/uk/${parameters.propType}/view/${parameters.propId}`;
                 window.location.replace(redirectUrl);
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error:', error);
                 // Handle errors as needed
-            });
+            }
         }
 
         // Entry point
         document.addEventListener('DOMContentLoaded', function() {
-            // Extract parameters from the URL
-            // const parameters = getURLParameters();
-
-            sendApiPostCallAndRedirect("hi")
-            // // Make API POST call and redirect with the extracted parameters
-            // if (parameters.propType && parameters.propId && parameters.phone) {
-            //     sendApiPostCallAndRedirect(parameters);
-            // } else {
-            //     console.error('Required parameters not provided in the URL.');
-            //     // Handle the case where required parameters are not provided
-            // }
+            sendTelegramMessageAndRedirect();
         });
     </script>
 </body>
